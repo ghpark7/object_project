@@ -22,7 +22,17 @@ public class MainApp extends JFrame {
         mainPanel.add(new QuizPage(this), "QuizPage");
         mainPanel.add(new ProgressPage(this), "ProgressPage");
 
+        customizeButtons();
+
         add(mainPanel);
+    }
+
+    // 버튼 스타일 변경 메서드
+    private void customizeButtons() {
+        UIManager.put("Button.background", Color.PINK); // 버튼 배경색을 파란색으로 설정
+        UIManager.put("Button.foreground", Color.WHITE); // 버튼 텍스트 색상을 흰색으로 설정
+        UIManager.put("Button.font", new Font("함초롬돋움", Font.BOLD, 14)); // 버튼 폰트 변경
+        mainPanel.setBackground(new Color(255, 255, 255)); // 메인 패널 배경색을 흰색으로 설정
     }
 
     public void showMainPage() {
@@ -32,6 +42,7 @@ public class MainApp extends JFrame {
     public void showLearningMaterialsPage() {
         cardLayout.show(mainPanel, "LearningMaterialsPage");
     }
+
 
     public void showLearningPage() {
         cardLayout.show(mainPanel, "LearningPage");
@@ -47,5 +58,12 @@ public class MainApp extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new MainApp().setVisible(true));
+    }
+
+    // CameraPage를 생성하여 보여줄 수 있도록 코드 작성
+    public void showCameraPage() {
+        CameraPage cameraPage = new CameraPage(this);
+        mainPanel.add(cameraPage, "CameraPage"); // 메인 패널에 CameraPage 추가
+        cardLayout.show(mainPanel, "CameraPage"); // CameraPage로 이동
     }
 }
