@@ -31,11 +31,15 @@ public class LearningPage extends JPanel {
             contentPanel.add(contentButton);
         }
 
+        JButton quizButton = new JButton("퀴즈");
+        quizButton.addActionListener(e -> mainApp.showQuizPage());
+
         JButton backButton = new JButton("메인 화면으로 돌아가기");
         backButton.addActionListener(e -> mainApp.showMainPage());
 
         add(new JLabel("오늘의 학습", JLabel.CENTER), BorderLayout.NORTH);
         add(contentPanel, BorderLayout.CENTER);
         add(backButton, BorderLayout.SOUTH);
+        add(quizButton, BorderLayout.EAST);
     }
 }
