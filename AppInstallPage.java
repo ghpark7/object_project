@@ -1,17 +1,18 @@
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class CameraPage extends JPanel {
+public class AppInstallPage extends JPanel {
     private MainApp mainApp;
     private ImageIcon[] imageIcons; // 이미지 아이콘 배열
     private int currentIndex = 0; // 현재 보여지는 이미지의 인덱스
     private JLabel imageLabel; // 이미지를 표시할 JLabel
     private JButton backButton; // 뒤로 가기 버튼
-    private JButton prevImageButton; // 이전 이미지 버튼
-    private JButton nextImageButton; // 다음 이미지 버튼
-    private JButton quizButton; // 퀴즈 페이지로 이동하는 버튼
+    private JButton prevImageButton; // 이전 이미지 버튼 
+    private JButton nextImageButton; // 다음 이미지 버튼 
 
-    public CameraPage(MainApp mainApp) {
+    public AppInstallPage(MainApp mainApp) {
         this.mainApp = mainApp;
         setupUI();
     }
@@ -19,8 +20,8 @@ public class CameraPage extends JPanel {
     private void setupUI() {
         setLayout(new BorderLayout());
 
-        // 위에 큰 제목
-        JLabel titleLabel = new JLabel("    카메라 이용하는 방법", JLabel.CENTER);
+        //위에 큰 제목
+        JLabel titleLabel = new JLabel("    앱 설치하는 방법", JLabel.CENTER);
         titleLabel.setFont(new Font("맑은 고딕", Font.BOLD, 100));
         titleLabel.setBackground(Color.decode("#CBDBFF")); // 배경색 설정
         titleLabel.setOpaque(true); // 배경이 투명하지 않게 설정
@@ -40,7 +41,7 @@ public class CameraPage extends JPanel {
 
         // 이미지 아이콘 배열에 이미지 아이콘들을 추가합니다.
         for (int i = 0; i < imageIcons.length; i++) {
-            imageIcons[i] = new ImageIcon("camera" + (i + 1) + ".png"); // 이미지 파일의 경로 지정
+            imageIcons[i] = new ImageIcon("appinstall" + (i + 1) + ".png"); // 이미지 파일의 경로 지정
         }
 
         // 이미지를 표시할 JLabel 생성 및 초기 이미지 설정
@@ -64,36 +65,36 @@ public class CameraPage extends JPanel {
         setImageIcon(currentIndex);
 
         // 버튼 패널을 하단에 추가
-        JPanel southPanel = new JPanel(new GridLayout(1, 3)); // 버튼을 3개의 영역으로 나누기 위해 GridLayout 사용
+        JPanel southPanel = new JPanel(new BorderLayout());
 
         // 이전 이미지로 이동하는 버튼 생성 (하단 좌측에 위치)
-        prevImageButton = new JButton("◀ 이전 방법으로 이동하기");
-        prevImageButton.setPreferredSize(new Dimension(300, 100)); // 버튼 크기 조정
-        prevImageButton.setFont(new Font("맑은 고딕", Font.BOLD, 20)); // 버튼 글꼴 크기 조정
+        prevImageButton = new JButton("◀ 이전 방법으로 이동하기"); 
+        prevImageButton.setPreferredSize(new Dimension(900, 100)); // 버튼 크기 조정
+        prevImageButton.setFont(new Font("맑은 고딕", Font.BOLD, 50)); // 버튼 글꼴 크기 조정
         prevImageButton.setBackground(Color.decode("#CBDBFF")); // 배경색 설정
         prevImageButton.setForeground(Color.BLACK); // 글자색 설정
-        prevImageButton.addActionListener(e -> prevImage());
+        prevImageButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                prevImage();
+            }
+        });
         prevImageButton.setEnabled(false); // 초기 상태에서 첫 번째 이미지이므로 비활성화
-        southPanel.add(prevImageButton);
+        southPanel.add(prevImageButton, BorderLayout.WEST);
 
-        // 다음 이미지로 이동하는 버튼 생성 (하단 가운데에 위치)
-        nextImageButton = new JButton("다음 방법으로 이동 ▶");
-        nextImageButton.setPreferredSize(new Dimension(300, 100)); // 버튼 크기 조정
-        nextImageButton.setFont(new Font("맑은 고딕", Font.BOLD, 20)); // 버튼 글꼴 크기 조정
+        // 다음 이미지로 이동하는 버튼 생성 (하단 우측에 위치)
+        nextImageButton = new JButton("다음 방법으로 이동 ▶"); // 기존 nextButton에서 nextImageButton으로 변경
+        nextImageButton.setPreferredSize(new Dimension(900, 100)); // 버튼 크기 조정
+        nextImageButton.setFont(new Font("맑은 고딕", Font.BOLD, 50)); // 버튼 글꼴 크기 조정
         nextImageButton.setBackground(Color.decode("#CBDBFF")); // 배경색 설정
         nextImageButton.setForeground(Color.BLACK); // 글자색 설정
-        nextImageButton.addActionListener(e -> nextImage());
-        southPanel.add(nextImageButton);
-
-        // 퀴즈 페이지로 이동하는 버튼 생성 (하단 우측에 위치)
-        quizButton = new JButton("퀴즈 페이지로 이동");
-        quizButton.setPreferredSize(new Dimension(300, 100)); // 버튼 크기 조정
-        quizButton.setFont(new Font("맑은 고딕", Font.BOLD, 20)); // 버튼 글꼴 크기 조정
-        quizButton.setBackground(Color.decode("#CBDBFF")); // 배경색 설정
-        quizButton.setForeground(Color.BLACK); // 글자색 설정
-        quizButton.addActionListener(e -> mainApp.showQuizPage()); // 퀴즈 페이지로 이동
-        quizButton.setEnabled(false); // 초기 상태에서는 비활성화
-        southPanel.add(quizButton);
+        nextImageButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                nextImage();
+            }
+        });
+        southPanel.add(nextImageButton, BorderLayout.EAST);
 
         add(southPanel, BorderLayout.SOUTH);
     }
@@ -106,7 +107,6 @@ public class CameraPage extends JPanel {
         }
         nextImageButton.setEnabled(true); // 다음 이미지 버튼 활성화
         setImageIcon(currentIndex);
-        updateQuizButtonState();
     }
 
     private void nextImage() {
@@ -117,18 +117,6 @@ public class CameraPage extends JPanel {
         }
         prevImageButton.setEnabled(true); // 이전 이미지 버튼 활성화
         setImageIcon(currentIndex);
-        updateQuizButtonState();
-    }
-
-    // 퀴즈 페이지로 이동하는 버튼 상태 업데이트
-    private void updateQuizButtonState() {
-        if (currentIndex == imageIcons.length - 1) {
-            // 현재 이미지가 마지막 이미지인 경우 퀴즈 페이지로 이동하는 버튼 활성화
-            quizButton.setEnabled(true);
-        } else {
-            // 그렇지 않은 경우 비활성화
-            quizButton.setEnabled(false);
-        }
     }
 
     // 이미지 아이콘을 설정하고 크기를 조정하는 메서드

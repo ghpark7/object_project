@@ -44,17 +44,17 @@ public class MainPage extends JPanel {
         
         JButton learningMaterialsButton = new JButton("<html><center><bold>학습자료집</bold><br><br><font size='10'>학습자료집은 뚝딱폰의 전체 자료를 제공합니다.</font></center></html>");
         learningMaterialsButton.setPreferredSize(new Dimension(200, 50)); // 너비 200픽셀, 높이 50픽셀로 설정
-        learningMaterialsButton.setPreferredSize(new Dimension(550, 600)); // 너비 200픽셀, 높이 50픽셀로 설정
+        learningMaterialsButton.setPreferredSize(new Dimension(400, 400)); // 너비 200픽셀, 높이 50픽셀로 설정
         learningMaterialsButton.setBackground(Color.decode("#CBDBFF")); // 배경색을 파란색으로 설정
         learningMaterialsButton.setFont(new Font("함초롬돋움", Font.PLAIN, 80)); // 글꼴은 '맑은 고딕', 크기는 20픽셀로 설정
 
         JButton todayLearningButton = new JButton("<html><center>오늘의 학습<br><br><font size='10'>오늘의 학습 자료를 보고 퀴즈를 풀 수 있습니다.</font></center></html>");
-        todayLearningButton.setPreferredSize(new Dimension(550, 600)); // 너비 200픽셀, 높이 50픽셀로 설정
+        todayLearningButton.setPreferredSize(new Dimension(400, 400)); // 너비 200픽셀, 높이 50픽셀로 설정
         todayLearningButton.setBackground(Color.decode("#FFDBEA"));
         todayLearningButton.setFont(new Font("함초롬돋움", Font.PLAIN, 80)); // 글꼴은 '맑은 고딕', 크기는 20픽셀로 설정
 
         JButton progressButton = new JButton("<html><center>전체 진도 현황<br><br><font size='10'>나의 전체 진도 현황을 확인할 수 있습니다.</font></center></html>");
-        progressButton.setPreferredSize(new Dimension(550, 600)); // 너비 200픽셀, 높이 50픽셀로 설정
+        progressButton.setPreferredSize(new Dimension(400, 400)); // 너비 200픽셀, 높이 50픽셀로 설정
         progressButton.setBackground(Color.decode("#FFF6BA")); // 배경색을 파란색으로 설정
         progressButton.setFont(new Font("함초롬돋움", Font.PLAIN, 80)); // 글꼴은 '맑은 고딕', 크기는 20픽셀로 설정
 
