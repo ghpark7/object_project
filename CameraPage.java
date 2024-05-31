@@ -66,7 +66,7 @@ public class CameraPage extends JPanel {
         // 버튼 패널을 하단에 추가
         JPanel southPanel = new JPanel(new GridLayout(1, 3)); // 버튼을 3개의 영역으로 나누기 위해 GridLayout 사용
 
-        // 이전 이미지로 이동하는 버튼 생성 (하단 좌측에 위치)
+        // 이전 이미지로 이동하는 버튼 생성 (하단 좌측에 위치)////////////////////////////////
         prevImageButton = new JButton("◀ 이전 방법으로 이동하기");
         prevImageButton.setPreferredSize(new Dimension(300, 100)); // 버튼 크기 조정
         prevImageButton.setFont(new Font("맑은 고딕", Font.BOLD, 20)); // 버튼 글꼴 크기 조정
@@ -91,7 +91,7 @@ public class CameraPage extends JPanel {
         quizButton.setFont(new Font("맑은 고딕", Font.BOLD, 20)); // 버튼 글꼴 크기 조정
         quizButton.setBackground(Color.decode("#CBDBFF")); // 배경색 설정
         quizButton.setForeground(Color.BLACK); // 글자색 설정
-        quizButton.addActionListener(e -> mainApp.showQuizPage()); // 퀴즈 페이지로 이동
+        quizButton.addActionListener(e -> mainApp.showCameraQuizPage()); // 퀴즈 페이지로 이동
         quizButton.setEnabled(false); // 초기 상태에서는 비활성화
         southPanel.add(quizButton);
 
