@@ -43,7 +43,6 @@ public class MainApp extends JFrame {
         cardLayout.show(mainPanel, "LearningMaterialsPage");
     }
 
-
     public void showLearningPage() {
         cardLayout.show(mainPanel, "LearningPage");
     }
@@ -55,15 +54,39 @@ public class MainApp extends JFrame {
     public void showProgressPage() {
         cardLayout.show(mainPanel, "ProgressPage");
     }
+    
+    public void showCameraPage() {
+        CameraPage cameraPage = new CameraPage(this);
+        mainPanel.add(cameraPage, "CameraPage"); 
+        cardLayout.show(mainPanel, "CameraPage"); 
+    }
+
+    public void showMessagePage() {
+        MessagePage messagePage = new MessagePage(this);
+        mainPanel.add(messagePage, "MessagePage"); 
+        cardLayout.show(mainPanel, "MessagePage"); 
+    }
+
+    public void showAppInstallPage() {
+        AppInstallPage appInstallPage = new AppInstallPage(this);
+        mainPanel.add(appInstallPage, "AppInstallPage"); 
+        cardLayout.show(mainPanel, "AppInstallPage"); 
+    }
+
+    public void showFontSizePage() {
+        FontSizePage fontSizePage = new FontSizePage(this);
+        mainPanel.add(fontSizePage, "FontSizePage"); 
+        cardLayout.show(mainPanel, "FontSizePage"); 
+    }
+
+    public void showEmergeTelPage() {
+        EmergeTelPage emergeTelPage = new EmergeTelPage(this);
+        mainPanel.add(emergeTelPage, "EmergeTelPage"); 
+        cardLayout.show(mainPanel, "EmergeTelPage"); 
+    }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new MainApp().setVisible(true));
-    }
-
-    // CameraPage를 생성하여 보여줄 수 있도록 코드 작성
-    public void showCameraPage() {
-        CameraPage cameraPage = new CameraPage(this);
-        mainPanel.add(cameraPage, "CameraPage"); // 메인 패널에 CameraPage 추가
-        cardLayout.show(mainPanel, "CameraPage"); // CameraPage로 이동
     }
 }

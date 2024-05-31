@@ -1,7 +1,7 @@
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.*;
 
 public class QuizPage extends JPanel {
     private MainApp mainApp;
@@ -9,6 +9,7 @@ public class QuizPage extends JPanel {
     private int currentQuestionIndex = 0;
     private JLabel questionLabel;
     private JRadioButton[] optionButtons;
+    private ButtonGroup group;
 
     public QuizPage(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -20,11 +21,12 @@ public class QuizPage extends JPanel {
 
         // 퀴즈 질문 생성
         questions = new ArrayList<>();
-        questions.add(new QuizQuestion("스마트폰에서 앱을 검색하는 방법은?", new String[]{"구글 플레이 스토어", "카메라", "카카오톡", "문자 보내기"}, 0));
-        questions.add(new QuizQuestion("문자 메시지를 보내기 위해 필요한 앱은?", new String[]{"카메라", "카카오톡", "문자 보내기", "앱 검색하기"}, 2));
+        questions.add(new QuizQuestion("CameraQuiz1.png", new String[]{"하단의 큰 하얀색 동그라미를 눌러요.", "우측 하단의 쌍방향 버튼을 눌러요.", "인식된 큐알코드를 눌러요.", "카메라 화면에 뜬 영어가 적힌 링크를 눌러요."}, 3, "큐알코드는 코드 인식 시 특정 페이지로 이동하는 기능을 가지고 있어요. \n이 큐알코드에 카메라를 가져다 대면 해당 페이지로 이동하는 링크가 떠요. 이 링크를 누르면 이동할 수 있답니다."));
+        questions.add(new QuizQuestion("CameraQuiz2.png", new String[]{"하단의 큰 하얀색 동그라미를 눌러요.", "우측 하단의 쌍방향 버튼을 눌러요.", "좌측 하단의 동그라미를 눌러요.", "동영상 버튼을 눌러요."}, 0, "하단 중앙의 큰 하얀색 동그라미 버튼이 사진을 찍는 버튼이에요.\n우측 하단의 쌍방향 버튼을 누르면 셀카( 내 얼굴)를 찍는 기능으로 바뀌어요. \n좌측 하단의 동그라미를 누르면 이전에 찍은 사진을 볼 수 있어요."));
+        questions.add(new QuizQuestion("CameraQuiz3.png", new String[]{"하단의 큰 하얀색 동그라미를 눌러요.", "우측 하단의 쌍방향 버튼을 눌러요.", " 하단의 사진 옆 ‘동영상’ 버튼을 눌러요..", "좌측 하단의 이전 사진 동그라미를 눌러요."}, 2, "하단의 사진 옆 동영상 버튼을 클릭하면 동영상 기능으로 바뀌어요.  \n그 뒤 사진 기능과 동일하게 중앙 하단의 동그라미 버튼을 누르면 녹화가 진행된답니다."));
 
         JPanel optionsPanel = new JPanel(new GridLayout(4, 1, 10, 10));
-        ButtonGroup group = new ButtonGroup();
+        group = new ButtonGroup();
         optionButtons = new JRadioButton[4];
         for (int i = 0; i < optionButtons.length; i++) {
             optionButtons[i] = new JRadioButton();
@@ -36,12 +38,16 @@ public class QuizPage extends JPanel {
         JButton nextButton = new JButton("다음 문제");
         nextButton.addActionListener(e -> showNextQuestion());
 
+        JButton submitButton = new JButton("정답 확인");
+        submitButton.addActionListener(e -> checkAnswer());
+
         JButton backButton = new JButton("메인 화면으로 돌아가기");
         backButton.addActionListener(e -> mainApp.showMainPage());
 
         add(questionLabel, BorderLayout.NORTH);
         add(optionsPanel, BorderLayout.CENTER);
         add(nextButton, BorderLayout.EAST);
+        add(submitButton, BorderLayout.SOUTH);
         add(backButton, BorderLayout.WEST);
 
         showNextQuestion();
@@ -50,7 +56,7 @@ public class QuizPage extends JPanel {
     private void showNextQuestion() {
         if (currentQuestionIndex < questions.size()) {
             QuizQuestion question = questions.get(currentQuestionIndex);
-            questionLabel.setText(question.getQuestion());
+            questionLabel.setIcon(question.getQuestion());
             String[] options = question.getOptions();
             for (int i = 0; i < optionButtons.length; i++) {
                 optionButtons[i].setText(options[i]);
@@ -61,20 +67,43 @@ public class QuizPage extends JPanel {
             mainApp.showMainPage();
         }
     }
+
+    private void checkAnswer() {
+        if (currentQuestionIndex > 0) {
+            QuizQuestion question = questions.get(currentQuestionIndex - 1);
+            int selectedOption = -1;
+            for (int i = 0; i < optionButtons.length; i++) {
+                if (optionButtons[i].isSelected()) {
+                    selectedOption = i;
+                    break;
+                }
+            }
+            if (selectedOption == question.getCorrectIndex()) {
+                JOptionPane.showMessageDialog(this, "정답입니다! \n해설: " + question.getExplanation(), "정답", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "틀렸습니다. \n해설: " + question.getExplanation(), "오답", JOptionPane.ERROR_MESSAGE);
+            }
+        } 
+    }
 }
 
 class QuizQuestion {
-    private String question;
+    private ImageIcon question;
     private String[] options;
     private int correctIndex;
+    private String explanation;
 
-    public QuizQuestion(String question, String[] options, int correctIndex) {
-        this.question = question;
+    public QuizQuestion(String imagePath, String[] options, int correctIndex, String explanation) {
+        ImageIcon originalIcon = new ImageIcon(imagePath);
+        Image originalImage = originalIcon.getImage();
+        Image scaledImage = originalImage.getScaledInstance(500, 500, Image.SCALE_SMOOTH);
+        this.question = new ImageIcon(scaledImage);
         this.options = options;
         this.correctIndex = correctIndex;
+        this.explanation = explanation;
     }
 
-    public String getQuestion() {
+    public ImageIcon getQuestion() {
         return question;
     }
 
@@ -84,5 +113,9 @@ class QuizQuestion {
 
     public int getCorrectIndex() {
         return correctIndex;
+    }
+
+    public String getExplanation() {
+        return explanation;
     }
 }
